@@ -16,3 +16,9 @@ export const hassPassword = async (password) => {
 export const comparePassword = async (password, hassedPassword) => {
     return bcrypt.compare(password, hassedPassword);
 };
+
+
+export const isValidEmail = (email) => {
+    const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+    return emailRegex.test(email);
+}

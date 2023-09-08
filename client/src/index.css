@@ -10,3 +10,7 @@ body {
   box-sizing: border-box;
   scroll-behavior: smooth;
 }
+
+.active {
+  color: rgb(246, 78, 106);
+}

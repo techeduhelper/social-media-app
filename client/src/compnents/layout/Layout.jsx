@@ -3,6 +3,7 @@ import React from "react";
 import Nvabr from "../Nvabr";
 import Footer from "../Footer";
 import { Helmet } from "react-helmet";
+import { Toaster } from "react-hot-toast";
 
 const Layout = ({ children }) => {
   return (
@@ -13,6 +14,7 @@ const Layout = ({ children }) => {
       </Helmet>
       <Nvabr />
       <main className="min-h-[87vh] mt-12 sm:px-2 md:px-4 lg:px-8">
+        <Toaster />
         {children}
       </main>
       <Footer />

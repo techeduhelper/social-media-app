@@ -5,6 +5,9 @@ import Contact from "./pages/Contact";
 import Login from "./pages/Login";
 import PageNotFound from "./pages/PageNotFound";
 import Register from "./pages/Register";
+import axios from "axios";
+
+axios.defaults.baseURL = import.meta.env.VITE_BACKEND_URL;
 
 function App() {
   return (

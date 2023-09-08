@@ -1,7 +1,58 @@
-import React from "react";
+import React, { useState } from "react";
 import Layout from "../compnents/layout/Layout";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
+import toast from "react-hot-toast";
+import { useAuth } from "../context/auth";
 
 const Login = () => {
+  const [usernameOrMobile, setUsernameOrMobile] = useState("");
+  const [password, setPassword] = useState("");
+  const navigate = useNavigate();
+  const [auth, setAuth] = useAuth();
+
+  const handleLogin = async (e) => {
+    e.preventDefault();
+    try {
+      const res = await axios.post("/api/v1/login", {
+        usernameOrMobile,
+        password,
+      });
+      if (res && res.data.success) {
+        toast.success(res.data.message, {
+          icon: "👏",
+          style: {
+            borderRadius: "10px",
+            background: "#333",
+            color: "#fff",
+          },
+        });
+        setAuth({
+          user: res.data.user,
+          token: res.data.token,
+        });
+        localStorage.setItem("auth", JSON.stringify(res.data));
+        setTimeout(() => {
+          navigate("/");
+        }, 500);
+      } else {
+        toast.error(res.data.message);
+      }
+    } catch (error) {
+      const errorMessage = error.response
+        ? error.response.data.message
+        : "Error in log in. Please try again.";
+      toast.error(errorMessage, {
+        icon: "😥",
+        style: {
+          borderRadius: "10px",
+          background: "#333",
+          color: "#fff",
+        },
+      });
+    }
+  };
+
   return (
     <>
       <Layout>
@@ -72,7 +123,9 @@ const Login = () => {
                       className="appearance-none border pl-12 border-gray-100 shadow-sm focus:shadow-md focus:placeholder-gray-600  transition  rounded-full w-full py-3 text-gray-600 leading-tight focus:outline-none focus:ring-gray-600 focus:shadow-outline"
                       id="username"
                       type="text"
-                      placeholder="Email"
+                      value={usernameOrMobile}
+                      onChange={(e) => setUsernameOrMobile(e.target.value)}
+                      placeholder="username or mobile no"
                     />
 
                     <div className="absolute left-0 inset-y-0 flex items-center">
@@ -92,9 +145,11 @@ const Login = () => {
                   <div className="relative mt-3">
                     <input
                       className="appearance-none border pl-12 border-gray-100 shadow-sm focus:shadow-md focus:placeholder-gray-600  transition  rounded-full w-full py-3 text-gray-600 leading-tight focus:outline-none focus:ring-gray-600 focus:shadow-outline"
-                      id="username"
-                      type="text"
-                      placeholder="Password"
+                      id="password"
+                      type="password"
+                      value={password}
+                      onChange={(e) => setPassword(e.target.value)}
+                      placeholder="password"
                     />
 
                     <div className="absolute left-0 inset-y-0 flex items-center">
@@ -121,7 +176,10 @@ const Login = () => {
                   </div>
 
                   <div className="flex items-center justify-center mt-8">
-                    <button className="text-white py-2 px-4 uppercase rounded-full bg-pink-500 hover:bg-pink-600 shadow hover:shadow-lg font-medium transition transform hover:-translate-y-0.5 w-full">
+                    <button
+                      onClick={handleLogin}
+                      className="text-white py-2 px-4 uppercase rounded-full bg-pink-500 hover:bg-pink-600 shadow hover:shadow-lg font-medium transition transform hover:-translate-y-0.5 w-full"
+                    >
                       Sign in
                     </button>
                   </div>
