@@ -13,7 +13,7 @@ const Layout = ({ children }) => {
         <meta name="description" content="Helmet application" />
       </Helmet>
       <Nvabr />
-      <main className="min-h-[87vh] mt-12 sm:px-2 md:px-4 lg:px-8">
+      <main className="min-h-[87vh] mt-12">
         <Toaster />
         {children}
       </main>

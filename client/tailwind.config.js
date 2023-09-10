@@ -3,10 +3,11 @@ export default {
   content: [
     "./index.html",
     "./src/**/*.{js,ts,jsx,tsx}",
+    'node_modules/flowbite-react/**/*.{js,jsx,ts,tsx}'
   ],
   theme: {
     screens: {
-      'sm': '340px',
+      'sm': '320px',
       // => @media (min-width: 640px) { ... }
 
       'md': '768px',
@@ -23,5 +24,5 @@ export default {
     },
     extend: {},
   },
-  plugins: [],
+  plugins: [require('flowbite/plugin')],
 }

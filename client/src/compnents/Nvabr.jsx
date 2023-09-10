@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { useAuth } from "../context/auth";
 import { useNavigate, NavLink } from "react-router-dom";
 import toast from "react-hot-toast";
+import { Dropdown } from "flowbite-react";
 
 const Nvabr = () => {
   const [open, setOpen] = useState(false);
@@ -25,34 +26,33 @@ const Nvabr = () => {
         <div className="lg:px-8 sm:px-4 flex justify-between items-center w-full">
           <Link
             to={"/"}
-            className="brand text-2xl py-2 font-bold text-gray-600"
+            className="brand text-3xl py-2 font-bold text-gray-600"
           >
             <span className="text-blue-900 font-serif tracking-wider">
               Social
             </span>
-            <span className="text-sm text-pink-600 drop-shadow-xl font-extrabold">
+            <span className="text-lg text-pink-600 drop-shadow-xl font-extrabold">
               App
             </span>
           </Link>
           <div className="menu-container flex text-md font-medium tracking-wide gap-3">
             <ul className="flex gap-6 sm:hidden lg:flex uppercase">
               <NavLink
-                exact
-                activeClassName="active"
+                activeclassname="active"
                 className="text-gray-500 hover:bg-slate-100 px-3 py-[0.7rem]  hover:text-black"
                 to={"/"}
               >
                 Home
               </NavLink>
               <NavLink
-                activeClassName="active"
+                activeclassname="active"
                 className="text-gray-500 hover:bg-slate-100 px-3 py-[0.7rem]  hover:text-black"
                 to={"/about"}
               >
                 About
               </NavLink>
               <NavLink
-                activeClassName="active"
+                activeclassname="active"
                 className="text-gray-500 hover:bg-slate-100 px-3 py-[0.7rem] hover:text-black"
                 to={"/contact"}
               >
@@ -60,32 +60,50 @@ const Nvabr = () => {
               </NavLink>
               {auth.user ? (
                 <>
-                  <NavLink
-                    activeClassName="active"
-                    className="text-gray-500 hover:bg-slate-100 px-3 py-[0.7rem]  hover:text-black"
-                    to={"/Dashboard"}
-                  >
-                    Dashboard
-                  </NavLink>
-                  <NavLink
-                    to={"/login"}
-                    onClick={handleLogout}
-                    className="text-gray-500 hover:bg-slate-100 px-3 py-[0.7rem] hover:text-black"
-                  >
-                    Logout
-                  </NavLink>
+                  <div className="">
+                    <Dropdown
+                      label="Account"
+                      style={{
+                        textTransform: "uppercase",
+                        backgroundColor: "#27005D",
+                        outline: "none",
+                        padding: "1px",
+                      }}
+                      className=""
+                    >
+                      <Dropdown.Item
+                        as={Link}
+                        to={"/user/dashboard"}
+                        className="capitalize"
+                      >
+                        Dashboard
+                      </Dropdown.Item>
+                      <Dropdown.Item>Chat</Dropdown.Item>
+                      <Dropdown.Item activeclassname="active">
+                        Settings
+                      </Dropdown.Item>
+                      <Dropdown.Divider />
+                      <Dropdown.Item
+                        as={Link}
+                        to={"/login"}
+                        onClick={handleLogout}
+                      >
+                        Sign out
+                      </Dropdown.Item>
+                    </Dropdown>
+                  </div>
                 </>
               ) : (
                 <>
                   <NavLink
-                    activeClassName="active"
+                    activeclassname="active"
                     className="text-gray-500 hover:bg-slate-50 px-3 py-[0.7rem] hover:text-black"
                     to={"/login"}
                   >
                     Login
                   </NavLink>
                   <NavLink
-                    activeClassName="active"
+                    activeclassname="active"
                     className="text-gray-500 hover:bg-slate-100 px-3 py-[0.7rem]  hover:text-black"
                     to={"/register"}
                   >
@@ -136,7 +154,7 @@ const Nvabr = () => {
               <div className="bg-gray-200 absolute h-[calc(100vh-3rem)] w-full right-0 top-12 lg:hidden">
                 <ul className="flex flex-col justify-center items-center gap-4 h-full text-2xl tracking-wider ">
                   <NavLink
-                    activeClassName="active"
+                    activeclassname="active"
                     to={"/"}
                     onClick={() => {
                       setOpen(!open);
@@ -145,7 +163,7 @@ const Nvabr = () => {
                     Home
                   </NavLink>
                   <NavLink
-                    activeClassName="active"
+                    activeclassname="active"
                     to={"/about"}
                     onClick={() => {
                       setOpen(!open);
@@ -154,7 +172,7 @@ const Nvabr = () => {
                     About
                   </NavLink>
                   <NavLink
-                    activeClassName="active"
+                    activeclassname="active"
                     to={"/contact"}
                     onClick={() => {
                       setOpen(!open);
@@ -165,7 +183,7 @@ const Nvabr = () => {
                   {!auth.user ? (
                     <>
                       <NavLink
-                        activeClassName="active"
+                        activeclassname="active"
                         to={"/login"}
                         onClick={() => {
                           setOpen(!open);
@@ -174,7 +192,7 @@ const Nvabr = () => {
                         Login
                       </NavLink>
                       <NavLink
-                        activeClassName="active"
+                        activeclassname="active"
                         to={"/register"}
                         onClick={() => {
                           setOpen(!open);
@@ -186,8 +204,8 @@ const Nvabr = () => {
                   ) : (
                     <>
                       <NavLink
-                        activeClassName="active"
-                        to={"/Dashboard"}
+                        activeclassname="active"
+                        to={"/user/dashboard"}
                         onClick={() => {
                           setOpen(!open);
                         }}
